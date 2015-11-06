@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window>
+	<Form Height="192" Id="form_dept" Left="8" PidAttrib="7" Title="부서관리" Top="8" Ver="1.0" Width="376" WorkArea="true">
+		<Datasets>
+			<Dataset DataSetType="Dataset" Id="tb_dept" OnError="tb_dept_error" OnLoadCompleted="tb_dept_load">
+				<Contents>
+					<colinfo id="deptno" size="20" type="INT"/>
+					<colinfo id="dname" size="256" type="STRING"/>
+					<colinfo id="loc" size="256" type="STRING"/>
+				</Contents>
+			</Dataset>
+		</Datasets>
+		<Button Height="24" Id="bt_dept" Left="8" OnClick="bt_dept_OnClick" TabOrder="1" Text="조회" Top="8" Width="104"></Button>
+		<Grid AutoFit="TRUE" BindDataset="tb_dept" BkColor2="default" BoldHead="true" Bottom="160" Enable="true" EndLineColor="default" Height="120" Id="gd_dept" InputPanel="FALSE" Left="8" LineColor="default" MinWidth="100" Right="368" TabOrder="2" TabStop="true" Top="40" UseDBuff="true" UsePopupMenu="true" UseSelColor="true" Visible="true" VLineColor="default" WheelScrollRow="1" Width="360">
+			<contents>
+				<columns>
+					<col width="60"/>
+					<col width="80"/>
+					<col width="80"/>
+				</columns>
+				<head>
+					<cell col="0" display="text" text="deptno"/>
+					<cell col="1" display="text" text="dname"/>
+					<cell col="2" display="text" text="loc"/>
+				</head>
+				<body>
+					<cell col="0" colid="deptno" display="number"/>
+					<cell col="1" colid="dname" display="text"/>
+					<cell col="2" colid="loc" display="text"/>
+				</body>
+			</contents>
+		</Grid>
+		<Edit BindDataset="tb_dept" Column="deptno" Height="21" Id="Edit0" Left="8" OnChanged="Edit0_OnChanged" TabOrder="3" Text="Edit0" Top="168" Width="121"></Edit>
+		<Edit BindDataset="tb_dept" Column="dname" Height="21" Id="Edit1" Left="128" TabOrder="4" Text="Edit1" Top="168" Width="121"></Edit>
+		<Edit BindDataset="tb_dept" Column="loc" Height="21" Id="Edit2" Left="248" TabOrder="5" Text="Edit2" Top="168" Width="121"></Edit>
+	</Form>
+	<Script><![CDATA[
+function bt_dept_OnClick(obj)
+{
+	alert(obj.Text);
+	tb_dept.Load("SvcJsp::http://localhost:8080/hy_miplatform/dept/getdeptlist.jsp");
+}
+
+}
+
+function tb_dept_load(obj,nErrorCode,strErrorMsg,nReason)
+{
+	
+	//if( nReason == 0 ) // FirstRow처리나 Filter처리의 경우 이값이 0이외의 값이 됨
+	alert(nReason+":OnLoadCompleted!!!");
+}
+
+function tb_dept_error(obj,nErrorCode,strErrorMsg)
+{
+	alert("OnError["+nErrorCode+":"+strErrorMsg+"]");
+}
+]]></Script>
+</Window>
