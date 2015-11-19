@@ -39,5 +39,10 @@
 		<AppGroup CodePage="utf-8" Prefix="DefApp" Type="Form" version="1.0">
 			<script Baseurl="D:\구글\프로젝트&#32;모음\miplatform\DefApp\Win32\" cachelevel="none" ext="xml" ScriptUrl="D:\구글\프로젝트&#32;모음\miplatform\DefApp\Script\" version="1000"/>
 		</AppGroup>
+		<DataGroup Baseurl="http://localhost:8080/hy_miflatform/" CacheLevel="none" CodePage="utf-8" Ext="jsp" Language="1042" Prefix="testJsp" Streamver="3100" TrMethod="normal" Type="JSP" Version="1000"/>
+		<DataGroup Baseurl="http://demo.miplatform.com:8080/edu/service_jsp_U/" CacheLevel="none" CodePage="utf-8" Ext="jsp" Language="1042" Prefix="SvcJsp" Streamver="3100" TrMethod="normal" Type="JSP" Version="1000"/>
+		<DataGroup Baseurl="httpsync://demo.miplatform.com:8080/edu/service_jsp_U/" CacheLevel="none" CodePage="utf-8" Ext="jsp" Language="1042" Prefix="SvcSync" Streamver="4000" TrMethod="normal" Type="JSP" Version="1000"/>
+		<DataGroup Baseurl="ldb://AppLdb::" CacheLevel="none" CodePage="utf-8" Ext="xml" Language="1042" Prefix="SvcLdb" Streamver="4000" TrMethod="normal" Type="LDB" Version="1000"/>
+		<DataGroup Baseurl="http://demo.miplatform.com/edu/service_asp_U/" CacheLevel="none" CodePage="utf-8" Language="1042" Prefix="SvcAsp" Streamver="4000" TrMethod="normal" Type="ASP" Version="1000"/>
 	</AppGroups>
 </ConnectGroup>

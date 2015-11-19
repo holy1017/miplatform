@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window>
+	<Form Height="574" Id="frm_dept" Left="8" PidAttrib="7" Title="부서관리" Top="8" Ver="1.0" Width="800" WorkArea="true">
+		<Datasets>
+			<Dataset DataSetType="Dataset" Id="ds_dept">
+				<Contents>
+					<colinfo id="deptno" size="20" type="INT"/>
+					<colinfo id="dname" size="256" type="STRING"/>
+					<colinfo id="loc" size="256" type="STRING"/>
+				</Contents>
+			</Dataset>
+		</Datasets>
+		<Button Height="30" Id="btn_sel" Left="232" OnClick="btn_sel_OnClick" TabOrder="1" Text="조회" Top="18" Width="48"></Button>
+		<Grid BindDataset="ds_dept" BkColor2="default" BoldHead="true" Bottom="176" Editable="TRUE" Enable="true" EndLineColor="default" Height="120" Id="gr_dept" InputPanel="FALSE" Left="16" LineColor="default" Right="336" TabOrder="2" TabStop="true" Top="56" UseDBuff="true" UsePopupMenu="true" UseSelColor="true" Visible="true" VLineColor="default" WheelScrollRow="1" Width="320">
+			<contents>
+				<columns>
+					<col width="60"/>
+					<col width="80"/>
+					<col width="80"/>
+				</columns>
+				<head>
+					<cell col="0" display="text" text="deptno"/>
+					<cell col="1" display="text" text="dname"/>
+					<cell col="2" display="text" text="loc"/>
+				</head>
+				<body>
+					<cell col="0" colid="deptno" display="number" edit="normal"/>
+					<cell col="1" colid="dname" display="text" edit="normal"/>
+					<cell col="2" colid="loc" display="text" edit="normal"/>
+				</body>
+			</contents>
+		</Grid>
+		<Edit BindDataset="ds_dept" Column="deptno" Height="21" Id="ed_deptno" Left="16" TabOrder="3" Top="192" Width="104"></Edit>
+		<Edit BindDataset="ds_dept" Column="dname" Height="21" Id="ed_dname" Left="128" TabOrder="4" Top="192" Width="104"></Edit>
+		<Edit BindDataset="ds_dept" Column="loc" Height="21" Id="ed_loc" Left="248" TabOrder="5" Top="192" Width="112"></Edit>
+		<Button Height="29" Id="btn_ins" Left="283" OnClick="btn_ins_OnClick" TabOrder="6" Text="입력" Top="19" Width="52"></Button>
+		<Button Height="29" Id="btn_del" Left="179" OnClick="btn_del_OnClick" TabOrder="7" Text="삭제" Top="19" Width="52"></Button>
+		<Button Height="29" Id="btn_excel" Left="125" OnClick="btn_excel_OnClick" TabOrder="8" Text="엑셀변환" Top="19" Width="52"></Button>
+		<Button Height="29" Id="btn_save" Left="70" OnClick="btn_save_OnClick" TabOrder="9" Text="저장" Top="18" Width="52"></Button>
+	</Form>
+	<Script><![CDATA[var vdeptno;
+function btn_sel_OnClick(obj)
+{
+	//alert("버튼 라벨은 : "+obj.Text);
+	alert("row count:"+ds_dept.TotalRowCount());
+	//ds_dept.Load("SvcJsp::http://localhost:8080/hy_miflatform/dept/getDeptList.jsp");
+	ds_dept.Load("testJsp::/dept/getDeptList.do");
+}
+
+function btn_ins_OnClick(obj)
+{
+	ds_dept.AppendRow();
+}
+
+function btn_del_OnClick(obj)
+{
+	vdeptno = ds_dept.GetColumn(ds_dept.row,"deptno");
+	alert("vdeptno:"+vdeptno);
+	ds_dept.DeleteRow(ds_dept.row);
+}
+
+
+
+function btn_excel_OnClick(obj)
+{
+	gr_dept.ExportExcel("부서목록",true,false);
+}
+function btn_save_OnClick(obj)
+{
+	Transaction("tr_dept"
+			   ,"SvcJsp::/dept/cudDept.do?deptno="+vdeptno
+			   ,"input=ds_dept:u"
+			   ,"out_ds=output"
+			   ,"in_var2=2"
+			   ,"tr_dept_result");
+}
+var out_var;//server측 Output변수 처리
+var result;
+function tr_dept_result(trid,ErrorCode,ErrorMsg){
+  alert("tr_dept_result호출 성공");
+  if(trid =="tr_dept"){
+    if(ErrorCode < 0){
+       alert("저장실패 : "+ ErrorMsg);
+    }
+    else{
+	   alert("result ===> " + result);
+       alert("저장완료!!! out_var="+out_var);
+    }
+  }
+}
+
+
+
+
+
+
+
+
+]]></Script>
+</Window>
